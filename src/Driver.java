@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Driver {
@@ -38,10 +40,9 @@ WebDriver driver;
     }
     private WebDriver login() {
         
-        EdgeOptions option = new EdgeOptions();
-        option.addArguments("--headless");
-        System.setProperty("webdriver.chrome.driver","./resources/chromedriver/chromedriver.exe");
-        driver = new EdgeDriver(option);
+        SafariOptions option = new SafariOptions();
+      
+        driver = new SafariDriver(option);
         driver.get("https://www.stockmarketgame.org/login.html");
         WebElement user = driver.findElement(By.xpath("/html/body/div/div/section/section/div/form/p[1]/input"));
         user.sendKeys("DE_78_A497");
