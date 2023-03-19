@@ -66,6 +66,7 @@ WebDriver driver;
             int rowCount = rowsNumber.size();
             
             for (WebElement webElemnt : rowsNumber) {
+                Thread.sleep(50);
                 System.out.println(webElemnt.getText());
                 newEntry(webElemnt.getText());
             }

@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Windows",
+            "request": "launch",
+            "mainClass": "Windows",
+            "projectName": "testjar - Copy_80e547c1"
+        },
+        {
+            "type": "java",
+            "name": "Window",
+            "request": "launch",
+            "mainClass": "Window",
+            "projectName": "testjar - Copy_80e547c1"
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "App",

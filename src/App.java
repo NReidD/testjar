@@ -4,14 +4,24 @@ import java.util.ArrayList;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        File data = new File("portfolio.txt");
-        Driver mains = new Driver();
-mains.protocol(1, null, 0);
-        ArrayList<File> log = Startup(mains);
-        Portfolio portfolio = new Portfolio(log);
+        Window login = new Window();
+        
+        
 
     }
-
+    static void start() {
+        File data = new File("portfolio.txt");
+        Driver mains = new Driver();
+try {
+    mains.protocol(1, null, 0);
+    ArrayList<File> log = Startup(mains);
+        Portfolio portfolio = new Portfolio(log); 
+} catch (IOException | InterruptedException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+}
+        
+    }
     private static ArrayList<File> Startup(Driver mains) throws IOException, InterruptedException {
         File f = new File("stocks/");
         ArrayList<File> log = new ArrayList<File>();

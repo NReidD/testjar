@@ -145,7 +145,7 @@ System.out.println(firstSheet.getLastRowNum());
     headerCell.setCellStyle(headerStyle);
 
     headerCell = header.createCell(5);
-    String change = (String) data[5];
+    double change = Double.valueOf((((String)data[5]).replace("$", "")).replaceAll(",", "")); 
 
     headerCell.setCellValue(change);
     headerCell.setCellStyle(headerStyle);
