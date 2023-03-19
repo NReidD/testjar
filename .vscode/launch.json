@@ -9,9 +9,15 @@
             "name": "App",
             "request": "launch",
             "mainClass": "App",
+            "projectName": "testjar - Copy_80e547c1"
+        },
+        {
+            "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "App",
             "projectName": "testjar_c8775e27",
             "vmArgs": "--enable-preview"
-        },
-        
+        }
     ]
 }

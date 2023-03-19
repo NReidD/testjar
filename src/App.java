@@ -1,30 +1,37 @@
 import java.io.File;
-import java.lang.reflect.Array;
+import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.activation.MailcapCommandMap;
 
 public class App {
     public static void main(String[] args) throws Exception {
         File data = new File("portfolio.txt");
-        ArrayList<File> log = Startup();
-        Portfolio portfolio = new Portfolio(log);
-Driver mains = new Driver();
+        Driver mains = new Driver();
 mains.protocol(1, null, 0);
+        ArrayList<File> log = Startup(mains);
+        Portfolio portfolio = new Portfolio(log);
+
     }
 
-    private static ArrayList<File> Startup() {
+    private static ArrayList<File> Startup(Driver mains) throws IOException, InterruptedException {
         File f = new File("stocks/");
         ArrayList<File> log = new ArrayList<File>();
 if (f.exists() && f.isDirectory()) {
+    
+    
    for (File stock : f.listFiles()) {
 log.add(stock);
+}
+int numFile = log.size();
+if (numFile > 0) {
+
+} else {
+    mains.protocol(2, null, 0);
+    
 }
 }
 else{
     f.mkdir();
-    Driver mains = new Driver();
-    mains.protocol(1, null, 0);
+
     mains.protocol(2, null, 0);
 }
 
