@@ -13,7 +13,7 @@ public class App {
         File data = new File("portfolio.txt");
         Driver mains = new Driver();
 try {
-    mains.protocol(1, null, 0);
+    mains.protocol(1, null, 0, null, null);
     ArrayList<File> log = Startup(mains);
         Portfolio portfolio = new Portfolio(log); 
 } catch (IOException | InterruptedException e) {
@@ -35,16 +35,31 @@ int numFile = log.size();
 if (numFile > 0) {
 
 } else {
-    mains.protocol(2, null, 0);
+    mains.protocol(2, null, 0, null, null);
     
 }
 }
 else{
     f.mkdir();
 
-    mains.protocol(2, null, 0);
+    mains.protocol(2, null, 0, null, null);
 }
 
         return log;
+    }
+    public static boolean connect(String string, char[] cs) throws IOException, InterruptedException {
+        System.err.println("Runs");
+        Driver mains = new Driver();
+        StringBuilder build=new StringBuilder();
+        String pw = (build.append(cs)).toString();
+
+        
+        System.out.println(pw);
+        if(mains.protocol(10, null, 0, string, pw)){
+            return true;
+        }
+        
+
+        return false;
     }
 }

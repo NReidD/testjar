@@ -15,16 +15,37 @@ public class Driver {
 WebDriver driver;
     public Driver() {
         
-        driver = login();
         
     }
-    void protocol(int i, Stock s, int shares) throws IOException, InterruptedException {
+    boolean protocol(int i, Stock s, int shares,String extraargs, String extraargs2) throws IOException, InterruptedException {
         if (i==1) {
+            driver = login();
+
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
             driver.get("https://www.stockmarketgame.org/pa.html");
             assertEquals(driver.getTitle(), "https://www.stockmarketgame.org/pa.html");
         }
+        if (i==10) {
+            System.out.println("Right");
+            EdgeOptions option = new EdgeOptions();
+        option.addArguments("--headless");
+        System.setProperty("webdriver.chrome.driver","./resources/chromedriver/chromedriver.exe");
+        driver = new EdgeDriver(option);
+            driver.get("https://www.stockmarketgame.org/login.html");
+            WebElement user = driver.findElement(By.xpath("/html/body/div/div/section/section/div/form/p[1]/input"));
+            user.sendKeys(extraargs);
+            WebElement pass = driver.findElement(By.xpath("/html/body/div/div/section/section/div/form/p[2]/input[1]"));
+            pass.sendKeys(extraargs2);
+            WebElement enter = driver.findElement(By.xpath("/html/body/div/div/section/section/div/form/p[3]/input"));
+            enter.click();
+            Thread.sleep(500);
+            if (driver.getCurrentUrl().equals("https://www.stockmarketgame.org/pa.html")) {
+               return true; 
+            }
+        }
         if (i==2) {
+            driver = login();
+
             System.out.println("Wpot");
             //Search Holdings
             /*driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
@@ -83,6 +104,7 @@ WebDriver driver;
 
                 
         }
+        return false;
     }
     private void newEntry(String text) throws IOException, InterruptedException {
         String[] variables = text.split(" ");
