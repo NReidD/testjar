@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "App",
+            "projectName": "testjar_4d6cb26a"
+        },
+        {
+            "type": "java",
             "name": "Windows",
             "request": "launch",
             "mainClass": "Windows",

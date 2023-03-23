@@ -13,7 +13,7 @@ int cash;
         
     }
     private int read(File file) {
-        return 0;sd
+        return 0;
     }
    
     

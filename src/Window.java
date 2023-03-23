@@ -5,6 +5,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -23,6 +24,16 @@ public class Window {
         
         JTextField userField = new JTextField("Enter_User");
         JPasswordField passField = new JPasswordField("Enter Password");
+        if (new File("Private.txt").exists()) {
+            File file = new File("Private.txt");
+
+            Scanner s = new Scanner(file);
+             userField.setText(s.nextLine());
+            passField.setText(s.nextLine());
+            
+            
+
+        }
         JButton login = new JButton("login");
         login.addActionListener(new ActionListener() {
             public void actionPerformed() throws IOException, InterruptedException {
@@ -40,8 +51,27 @@ public class Window {
                 try {
                     if (App.connect(userField.getText(), passField.getPassword())) {
                         login.setText("Success!");
+                        int x =0;
+while (!(new File("stocks").exists()) || x==0) {
+    File setup = new File("stocks");
+    setup.mkdir();
+    File[] files = new File("stocks").listFiles();
+    while (x!=1) {
+        try {
+            // Your code...
+            System.out.println(files.length);
+            App.start();
+            System.out.println("don");
+            x=1;
 
-                        App.start();
+           } catch (Exception ignore) { }
+
+    }
+    userField.setVisible(false);
+    passField.setVisible(false);
+
+}
+                        
                     } 
                     else{
                         login.setText("Fail. Try Again");
