@@ -11,6 +11,7 @@ import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.formula.Formula;
 import org.apache.poi.ss.usermodel.Cell;
 
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -89,25 +90,60 @@ public void settarget(File file) throws FileNotFoundException {
     oput = fileOut;
     wb = wbt;
 }
+public void update() throws IOException {
+    FileInputStream input = new FileInputStream(file);
+    Workbook wbt = new HSSFWorkbook(input);
+    Sheet firstSheet = wbt.getSheet("Stock");
+    Iterator<Row> rowIterator = firstSheet.iterator();
+    CellStyle headerStyle = wbt.createCellStyle();
+    headerStyle.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+    headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+    
+    HSSFFont font = ((HSSFWorkbook) wbt).createFont();
+    font.setFontName("Arial");
+    font.setFontHeightInPoints((short) 16);
+    font.setBold(true);
+    headerStyle.setFont(font);
+    for(int i = 2; i<firstSheet.getPhysicalNumberOfRows();i+=2){
+        
+        Row header = firstSheet.createRow(i);
+        Cell headerCell = header.createCell(2);
+        if (headerCell.getRowIndex()<2) {
+            headerCell.setCellValue("=SUM(C"+String.valueOf(headerCell.getRowIndex()+1)+":C"+String.valueOf(headerCell.getRowIndex()-0)+")");
+
+        } else {
+headerCell.setCellValue("=SUM(C2)");
+        }
+        headerCell.setCellStyle(headerStyle);
+         headerCell = header.createCell(4);
+         if (headerCell.getRowIndex()>2) {
+            headerCell.setCellValue("=(C"+String.valueOf(headerCell.getRowIndex()-0)+"*F"+String.valueOf(headerCell.getRowIndex()-0)+")");
+
+        } else {
+headerCell.setCellValue("=(C2)*(F2)");
+        }         
+    }
+
+        
+        FileOutputStream fileOut = new FileOutputStream(file);
+
+    wbt.write(fileOut);
+    fileOut.close();
+    wbt.close();
+   
+}
  public void writeTo(Object[] data) throws IOException, InterruptedException {
     FileInputStream input = new FileInputStream(file);
     Workbook wbt = new HSSFWorkbook(input);
     Sheet firstSheet = wbt.getSheet("Stock");
-    System.out.println(firstSheet.getSheetName());
-    System.out.println(wbt.getNumberOfSheets());
-    Iterator<Row> rowIterator = firstSheet.iterator();
+   // System.out.println(firstSheet.getSheetName());
+    //System.out.println(wbt.getNumberOfSheets());
+    firstSheet.shiftRows(0, firstSheet.getLastRowNum(), 2);
     firstSheet.getLastRowNum();
-    Row row= null;
-    int o=0;
-    for (int i = 0; i <= firstSheet.getPhysicalNumberOfRows(); i++) {
-        System.out.println(i);
-        
-        System.out.println("good");
-        o=i;
-    }
+    
 
     
-    Row header = firstSheet.createRow(o);
+    Row header = firstSheet.createRow(1);
     System.out.println(firstSheet.getPhysicalNumberOfRows());
 
 System.out.println(firstSheet.getLastRowNum());
@@ -132,7 +168,11 @@ System.out.println(firstSheet.getLastRowNum());
     headerCell.setCellStyle(headerStyle);
 
     headerCell = header.createCell(2);
-    headerCell.setCellValue(String.valueOf(data[2]));
+    double shares = Double.valueOf((((String)data[2]).replace("$", "")).replaceAll(",", "")); 
+if (data[0].equals("Sell")) {
+    shares = shares *-1;
+}
+    headerCell.setCellValue(shares);
     headerCell.setCellStyle(headerStyle);
 
     headerCell = header.createCell(3);
@@ -160,6 +200,6 @@ FileOutputStream fileOut = new FileOutputStream(file);
     wbt.write(fileOut);
     fileOut.close();
     wbt.close();
-    
+    update();
  }
 }

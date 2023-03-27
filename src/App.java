@@ -11,16 +11,18 @@ public class App {
     }
     static void start() {
         File data = new File("portfolio.txt");
+    
         Driver mains = new Driver();
 try {
     mains.protocol(1, null, 0, null, null);
     ArrayList<File> log = Startup(mains);
         Portfolio portfolio = new Portfolio(log); 
 } catch (IOException | InterruptedException e) {
+    mains.driver.close();
     // TODO Auto-generated catch block
     e.printStackTrace();
 }
-        
+        mains.driver.close();
     }
     private static ArrayList<File> Startup(Driver mains) throws IOException, InterruptedException {
         File f = new File("stocks/");
@@ -56,6 +58,7 @@ else{
         
         System.out.println(pw);
         if(mains.protocol(10, null, 0, string, pw)){
+            mains.driver.close();
             return true;
         }
         

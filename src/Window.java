@@ -52,6 +52,7 @@ public class Window {
                     if (App.connect(userField.getText(), passField.getPassword())) {
                         login.setText("Success!");
                         int x =0;
+
 while (!(new File("stocks").exists()) || x==0) {
     File setup = new File("stocks");
     setup.mkdir();
@@ -64,11 +65,16 @@ while (!(new File("stocks").exists()) || x==0) {
             System.out.println("don");
             x=1;
 
-           } catch (Exception ignore) { }
+           } catch (Exception ignore) { 
+            
+           }
 
     }
     userField.setVisible(false);
     passField.setVisible(false);
+    login.setVisible(false);
+    f.setBounds(0, 0, 2000, 1000);
+    setup.delete();
 
 }
                         
@@ -92,6 +98,8 @@ while (!(new File("stocks").exists()) || x==0) {
         f.add(passField);
         f.addWindowListener(new WindowListener() {
             public void windowClosing(WindowEvent we) {
+                File deel = new File("stocks");
+                deel.delete();
                 System.exit(0);
             }
 
@@ -103,12 +111,16 @@ while (!(new File("stocks").exists()) || x==0) {
 
             @Override
             public void windowClosed(WindowEvent e) {
+                File deel = new File("stocks");
+                deel.delete();
                 // TODO Auto-generated method stub
                 System.exit(0);
+                
             }
 
             @Override
             public void windowIconified(WindowEvent e) {
+                
                 // TODO Auto-generated method stub
                 System.exit(0);
             }
