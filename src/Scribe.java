@@ -138,7 +138,10 @@ headerCell.setCellValue("=(C2)*(F2)");
     Sheet firstSheet = wbt.getSheet("Stock");
    // System.out.println(firstSheet.getSheetName());
     //System.out.println(wbt.getNumberOfSheets());
-    firstSheet.shiftRows(0, firstSheet.getLastRowNum(), 2);
+    if (firstSheet.getLastRowNum() >0) {
+        firstSheet.shiftRows(1, firstSheet.getLastRowNum(), 2);
+
+    }
     firstSheet.getLastRowNum();
     
 
